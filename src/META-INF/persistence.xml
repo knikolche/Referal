@@ -8,12 +8,13 @@
     <class>com.referal.models.LearningStyle</class>
     <class>com.referal.models.User</class>
     <properties>
-      <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" />
-      <property name="javax.persistence.jdbc.url"    value="jdbc:hsqldb:mem:test" />
-      <property name="javax.persistence.jdbc.user" value="sa" />
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+      <property name="javax.persistence.jdbc.url"    value="" />
+      <property name="javax.persistence.jdbc.user" value="" />
       <property name="javax.persistence.jdbc.password" value="" />
       <property name="eclipselink.ddl-generation" value="create-tables" />
       <property name="eclipselink.ddl-generation.output-mode" value="database" />
+      <property name="connectionProperties" value="ssl=true;sslfactory=org.postgresql.ssl.NonValidatingFactory;"/>
     </properties>
   </persistence-unit>
 </persistence>
