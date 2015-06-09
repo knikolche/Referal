@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Materials List</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"></link>
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#search").click(function() {
+			this.href += $("#searchbox").val();
+		})
+	});
+</script>
+<style>
+.body {
+	background-color: #b0e0e6;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 1% 5% 1% 5%;
+	border-radius: 10px;
+	background-color: white;
+	width: 70%;
+}
+
+ul, li {
+	list-style-type: none;
+}
+
+.listbullet{
+	list-style-type: disc;
+}
+
+.side {
+	width: 30%;
+	text-align: right;
+}
+</style>
+</head>
+<body class="body">
+	<div class="center">
+		<table width="100%">
+			<tr>
+				<td><h2>Materials List</h2></td>
+				<td th:if="${user==null}" class="side"><a href="login">Login</a>|<a
+					align="right" href="register">Register</a></td>
+				<td th:if="${user!=null}" class="side"><a href="user"
+					th:text="${user.username}"></a>|<a href="logout">Logout</a></td>
+			</tr>
+		</table>
+		<label for="search">Search:</label> <input id="searchbox" type="text"
+			name="search" th:value="${search}"></input> <a
+			class="btn btn-info btn-xs" id="search" href="materials?search="
+			value="Search">Search</a> <a class="btn btn-info btn-xs"
+			th:href="'addmaterial'" value="Add">Add Material</a>
+		<ul th:each="material : ${materials.pageList}">
+			<li>
+				<table>
+					<tr>
+						<td rowspan="4" valign="top" width="120px"><img th:src="@{'data:image/jpeg;base64,'+${material.picture}}" height="120px"></img></td>
+						<td>Title:</td>
+						<td><a th:href="'material?id='+${material.id}"
+							th:text="${material.title}"></a></td>
+					</tr>
+					<tr>
+						<td valign="top">Subject:</td>
+						<td th:text="${material.subject}"></td>
+					</tr>
+					<tr>
+						<td valign="top">Learning styles:</td>
+						<td><ul th:each="style : ${material.styles}" class="listbullet">
+								<li th:text="${style.type}" class="listbullet"></li>
+							</ul></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><a class="btn btn-info btn-xs"
+							th:href="'delete?id='+${material.id}" value="Delete">Delete</a><a
+							class="btn btn-info btn-xs"
+							th:href="'editmaterial?id='+${material.id}" value="Edit">Edit</a></td>
+					</tr>
+				</table>
+
+			</li>
+
+
+		</ul>
+		<a th:if="${!materials.firstPage}"
+			th:href="@{materials(search=${search},page=${materials.page - 1})}">Previous</a>
+		<span th:text="${materials.page + 1}">1/10</span> <a
+			th:if="${!materials.lastPage}"
+			th:href="@{materials(search=${search},page=${materials.page + 1})}">Next</a>
+	</div>
+</body>
+</html>

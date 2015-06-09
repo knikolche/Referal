@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"></meta>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"></link>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<title th:text="${user.username}"></title>
+<style>
+.body {
+	background-color: #b0e0e6;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 1% 5% 1% 5%;
+	border-radius: 10px;
+	background-color: white;
+	width: 70%;
+}
+
+table{
+	width:100%;
+	margin-bottom:10%;
+}
+
+.right{
+	text-align:right;
+}
+
+td{
+	width:30%;
+}
+
+h2{
+	text-align:center;
+}
+</style>
+</head>
+<body class="body">
+<div class="center">
+<table>
+<tr>
+<td>
+<h2>User</h2>
+</td>
+<td class="right">
+<a href="materials">Materials List</a>
+</td>
+<td class="right">
+<a href="logout">Logout</a>
+</td>
+</tr>
+</table>
+<table>
+<tr><td class="right">Name:</td><td th:text="${user.username}"></td></tr>
+<tr><td class="right">Style:</td><td th:text="${user.style.type}"></td></tr>
+<tr><td class="right">Recomended material:</td><td th:each="material : ${user.style.materials}">
+								<a th:href="'material?id='+${material.id}" th:utext="${material.title  + '&lt;br /&gt;'}"></a>
+								</td></tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"></meta>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"></link>
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<title th:text="${material.title}"></title>
+<style>
+.body {
+	background-color: #b0e0e6;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 1% 5% 1% 5%;
+	border-radius: 10px;
+	background-color: white;
+	width: 70%;
+}
+
+table {
+	width: 100%;
+	margin-bottom: 10%;
+}
+
+.right {
+	width: 20%;
+	text-align: left;
+}
+
+td {
+	width: 50%;
+}
+
+h2 {
+	text-align: center;
+}
+
+.side {
+	width: 15%;
+	text-align: right;
+}
+</style>
+</head>
+<body class="body">
+	<div class="center">
+
+		<table width="100%">
+			<tr>
+				<td><h2 th:text="${material.title}"></h2></td>
+				<td class="side"><a href="materials">Materials List</a></td>
+				<td th:if="${user==null}" class="side"><a href="login">Login</a>|<a
+					align="right" href="register">Register</a></td>
+				<td th:if="${user!=null}" class="side"><a href="user"
+					th:text="${user.username}"></a>|<a href="logout">Logout</a></td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td rowspan="5"><img
+					th:src="@{'data:image/jpeg;base64,'+${material.picture}}" height="400px"></img></td>
+				<td class="right">Title:</td>
+				<td th:text="${material.title}"></td>
+			</tr>
+			<tr>
+				<td class="right">Type:</td>
+				<td th:text="${material.type}"></td>
+			</tr>
+			<tr>
+				<td class="right">Subject:</td>
+				<td th:text="${material.subject}"></td>
+			</tr>
+			<tr>
+				<td class="right">Reference URL:</td>
+				<td><a th:href="${material.reference}"
+					th:text="${material.reference}"></a></td>
+			</tr>
+			<tr>
+				<td class="right">Learning styles:</td>
+				<td><ul th:each="style : ${material.styles}">
+						<li th:text="${style.type}"></li>
+					</ul></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class="side"><a class="btn btn-info btn-xs"
+					th:href="'delete?id='+${material.id}" value="Delete">Delete</a><a
+					class="btn btn-info btn-xs"
+					th:href="'editmaterial?id='+${material.id}" value="Edit">Edit</a></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

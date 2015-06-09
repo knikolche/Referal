@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"></meta>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"></link>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<title th:text="${materialform}"></title>
+<style>
+.body {
+	background-color: #b0e0e6;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	padding:5%;
+	border-radius: 10px;
+	background-color: white;
+	width: 70%;
+}
+
+h2{
+	margin:5px;
+	text-align:center;
+}
+table{
+	width:100%;
+}
+
+
+
+.right{
+	width:30%;
+	text-align:right;
+}
+.side{
+	width:15%;
+	text-align:right;
+}
+</style>
+</head>
+<body class="body">
+<div class="center">
+<table width="100%">
+			<tr>
+				<td><h2 th:text="${materialform}"></h2></td>
+				<td class="side"><a href="materials">Materials List </a></td>
+				<td th:if="${user==null}" class="side"><a href="login">Login</a>|<a align="right" href="register">Register</a></td>
+				<td th:if="${user!=null}" class="side"><a href="user" th:text="${user.username}"></a>|<a href="logout">Logout</a></td>
+			</tr>
+		</table>
+
+<form method="POST" th:action="'/Referal/addmaterialform?id='+${material.id}" enctype="multipart/form-data">
+<table>
+<tr><td class="right">Title:</td><td><input type="text" name="title" th:value="${material.title}"></input></td></tr>
+<tr><td class="right">Type:</td><td><input type="text" name="type" th:value="${material.type}"></input></td></tr>
+<tr><td class="right">Subject:</td><td><input type="text" name="subject" th:value="${material.subject}"></input></td></tr>
+<tr><td class="right">Reference URL:</td><td><input type="text" name="reference" th:value="${material.reference}"></input></td></tr>
+<tr><td class="right">Image:</td><td><input type="file" name="image"></input></td></tr>
+<tr><td class="right">Select applycable learning style:</td><td><input type="checkbox" th:each="style : ${styles}" name="styles" th:value="${style.id}" th:utext="${style.type  + '&lt;br /&gt;'}" th:checked="${material.containstyle(style)}"></input></td></tr>
+<tr><td></td><td><input class="btn btn-info btn-xs" type="submit" name="Submit"></input></td></tr>
+</table>
+</form>
+</div>
+</body>
+</html>
