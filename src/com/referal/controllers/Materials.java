@@ -4,12 +4,12 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -92,7 +92,7 @@ public class Materials {
 		        ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		        ImageIO.write(img, "png", baos);
 		        byte[] res = baos.toByteArray();
-		        String encodedImage = Base64.encodeBase64String(baos.toByteArray());
+		        String encodedImage = Base64.getEncoder().encodeToString(baos.toByteArray());
 				material.setPicture(encodedImage);
 			} catch (IOException e) {
 				e.printStackTrace();
